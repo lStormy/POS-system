@@ -20,15 +20,15 @@ int get_compra(FILE * fp) {
     
     cantidad = i; 
 
-    pId = malloc(sizeof(int) * cantidad);
+    pId = calloc(cantidad, sizeof(int));
     i = 0;
     while (i < cantidad) {
         line = s[i];
         while (*line && isspace(*line)) 
             line++; 
         while (*line) {
-            if (isspace(*line) || *line == '\n') { 
-                k++; 
+            if (isspace(*line) || *line == '\n') {  
+                k++;
             }
             else if (isdigit(*line)) { 
                 pId[k] *= 10;
@@ -41,6 +41,12 @@ int get_compra(FILE * fp) {
     return cantidad;
 } 
 
+void print_product (struct product p) {
+    printf("%d\n, %s\n, %s\n, %f\n, %f\n, %d",
+          p.id, p.categoria, p.nombre, p.precio_compra,
+          p.precio_venta, p.descuento); 
+}  
+
 struct ticket create_ticket(int cantidad) { 
     struct ticket compra = {.cantidad_vendido = cantidad}; 
     struct product aux; 
@@ -48,15 +54,15 @@ struct ticket create_ticket(int cantidad) {
     for (int i = 0; i < cantidad; i++) {
         aux = get_producto(pId[i]);
 
-        printf("%d\n", aux.precio_venta);
-
+        print_product(aux);
         compra.ids[i] = aux.id; 
         strcpy(compra.nombres[i], aux.nombre); 
-        ahorrado = (float)(aux.precio_venta)*(float)(aux.descuento/100);
+        ahorrado = ((float) aux.precio_venta)*((float)aux.descuento/100.0f);
         ahorrado += (aux.imp.precios_cuidados == 1) ? (aux.precio_venta * PRECIOS_CUIDADOS) : 0;
         compra.precio += (aux.precio_venta - ahorrado); 
         compra.cantidad_ahorrado = ahorrado; 
     }
+    return compra;
 }
 
 void process_compra(FILE *fp) { 
@@ -65,7 +71,6 @@ void process_compra(FILE *fp) {
     FILE * out = fopen(filepath, "a"); 
     
     compra = create_ticket(cantidad); 
-    printf("%d\n", compra.precio);
     save_ticket(compra, out);
 
     fclose(out);
