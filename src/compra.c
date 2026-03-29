@@ -47,6 +47,13 @@ void print_product (struct product p) {
           p.precio_venta, p.descuento); 
 }  
 
+void print_ticket (struct ticket t) { 
+    printf("%d\n, %d\n, %s\n, %f\n, %d\n", 
+            t.cantidad_vendido,
+            t.ids[0], t.nombres[0],
+            t.cantidad_ahorrado, t.precio );
+}
+
 struct ticket create_ticket(int cantidad) { 
     struct ticket compra = {.cantidad_vendido = cantidad}; 
     struct product aux; 
@@ -54,7 +61,6 @@ struct ticket create_ticket(int cantidad) {
     for (int i = 0; i < cantidad; i++) {
         aux = get_producto(pId[i]);
 
-        print_product(aux);
         compra.ids[i] = aux.id; 
         strcpy(compra.nombres[i], aux.nombre); 
         ahorrado = ((float) aux.precio_venta)*((float)aux.descuento/100.0f);
@@ -62,6 +68,7 @@ struct ticket create_ticket(int cantidad) {
         compra.precio += (aux.precio_venta - ahorrado); 
         compra.cantidad_ahorrado = ahorrado; 
     }
+    print_ticket(compra);
     return compra;
 }
 
@@ -70,7 +77,8 @@ void process_compra(FILE *fp) {
     int cantidad = get_compra(fp); 
     FILE * out = fopen(filepath, "a"); 
     
-    compra = create_ticket(cantidad); 
+    compra = create_ticket(cantidad);
+    print_ticket(compra); 
     save_ticket(compra, out);
 
     fclose(out);

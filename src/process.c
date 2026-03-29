@@ -59,12 +59,12 @@ struct product get_producto(int id) {
 void save_ticket (struct ticket p, FILE * fp) { 
     if (fp == NULL) 
         return ;
-     
+    printf("HOLA");
     cJSON * json_obj = cJSON_CreateObject(); 
     cJSON * json_names = cJSON_CreateArray();
     cJSON * json_ids = cJSON_CreateArray();
 
-    if (json_obj == NULL || json_names == NULL || json_ids) 
+    if (json_obj == NULL || json_names == NULL || json_ids == NULL) 
         return ;
 
     int i = 0; 
