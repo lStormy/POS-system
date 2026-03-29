@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/lucio/code/POS-system/build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

@@ -1,0 +1,3 @@
+/home/lucio/code/POS-system/build/CMakeFiles/pos_system.dir
+/home/lucio/code/POS-system/build/CMakeFiles/edit_cache.dir
+/home/lucio/code/POS-system/build/CMakeFiles/rebuild_cache.dir

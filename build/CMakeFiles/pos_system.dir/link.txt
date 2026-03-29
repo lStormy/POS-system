@@ -1,0 +1,1 @@
+/usr/bin/cc -Wl,--dependency-file=CMakeFiles/pos_system.dir/link.d CMakeFiles/pos_system.dir/src/process.c.o CMakeFiles/pos_system.dir/src/compra.c.o CMakeFiles/pos_system.dir/libs/cJSON/cJSON.c.o -o pos_system  -lm
